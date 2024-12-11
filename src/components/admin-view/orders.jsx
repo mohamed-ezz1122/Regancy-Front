@@ -44,8 +44,8 @@ function AdminOrdersView() {
         <CardTitle>All Orders</CardTitle>
       </CardHeader>
       <CardContent>
-        <Table>
-          <TableHeader>
+        <Table >
+          <TableHeader >
             <TableRow>
               <TableHead>Order ID</TableHead>
               <TableHead>Order Date</TableHead>
@@ -56,7 +56,7 @@ function AdminOrdersView() {
               </TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody >
             {orderList && orderList.length > 0
               ? orderList.map((orderItem,index) => (
                   <TableRow key={index}>

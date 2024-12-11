@@ -8,10 +8,14 @@ function AdminDashboard() {
   const [imageFile, setImageFile] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
   const [imageLoadingState, setImageLoadingState] = useState(false);
+  const [isDisabled, setisDisabled] = useState(true);
   const dispatch = useDispatch();
   const { featureImageList } = useSelector((state) => state.commonFeature);
 
   console.log(uploadedImageUrl, "uploadedImageUrl");
+  console.log(imageFile);
+  
+  
 
   function handleUploadFeatureImage() {
     dispatch(addFeatureImage(uploadedImageUrl)).then((data) => {
@@ -19,14 +23,24 @@ function AdminDashboard() {
         dispatch(getFeatureImages());
         setImageFile(null);
         setUploadedImageUrl("");
+        
       }
     });
   }
 
   useEffect(() => {
+   
     dispatch(getFeatureImages());
   }, [dispatch]);
-
+  useEffect(() => {
+   
+   if(imageFile == null){
+    setisDisabled(true)
+   }else{
+    setisDisabled(false)
+   }
+  }, [imageFile]);
+ 
   console.log(featureImageList, "featureImageList");
 
   return (
@@ -40,14 +54,16 @@ function AdminDashboard() {
         imageLoadingState={imageLoadingState}
         isCustomStyling={true}
         // isEditMode={currentEditedId !== null}
+        // disabled
+        
       />
-      <Button onClick={handleUploadFeatureImage} className="mt-5 w-full">
+      <Button disabled={isDisabled} onClick={handleUploadFeatureImage} className="mt-5 w-full">
         Upload
       </Button>
       <div className="flex flex-col gap-4 mt-5">
         {featureImageList && featureImageList.length > 0
-          ? featureImageList.map((featureImgItem) => (
-              <div className="relative">
+          ? featureImageList.map((featureImgItem , index) => (
+              <div className="relative" key={index}>
                 <img
                   src={featureImgItem.image}
                   className="w-full h-[300px] object-cover rounded-t-lg"

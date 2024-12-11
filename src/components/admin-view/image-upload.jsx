@@ -50,7 +50,7 @@ function ProductImageUpload({
     const data = new FormData();
     data.append("my_file", imageFile);
     const response = await axios.post(
-      "https://socialist-pierette-regency-fa98bebb.koyeb.app/api/admin/products/upload-image",
+      "http://localhost:3000/api/admin/products/upload-image",
       data
     );
     console.log(response, "response");
@@ -110,7 +110,7 @@ function ProductImageUpload({
               onClick={handleRemoveImage}
             >
               <XIcon className="w-4 h-4" />
-              <span className="sr-only">Remove File</span>
+              <span className="sr-only ">Remove File</span>
             </Button>
           </div>
         )}
